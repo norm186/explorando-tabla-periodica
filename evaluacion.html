@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Evaluación</title>
+    <link rel="stylesheet" href="evaluacion.css">
+</head>
+<body>
+    <h1>Registro para la Evaluación</h1>
+    
+    <form id="formularioEvaluacion">
+      
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required><br>
+
+        <label for="correo">Correo Electrónico:</label>
+        <input type="email" id="correo" required><br>
+
+        <label for="escuela">Escuela:</label>
+        <input type="text" id="escuela" required><br>
+
+        <label for="grado">Grado:</label>
+        <input type="text" id="grado" required><br>
+
+        <label for="grupo">Grupo:</label>
+        <input type="text" id="grupo" required><br>
+
+        <button type="button" id="btnComenzar">Comenzar Examen</button>
+        
+        <button type="button" onclick="window.location.href='index.html'">Regresar al Menú</button>
+    
+    </form>
+    <script src="evaluaciones.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso Maestra</title>
+  <link rel="stylesheet" href="evaluacion.css">
+</head>
+<body>
+  <!-- Formulario de acceso -->
+  <div id="loginMaestra">
+    <h2>Acceso Maestra</h2>
+    <form id="formLoginMaestra">
+      <label for="passwordMaestra">Contraseña:</label>
+      <!-- El campo de contraseña es de tipo "password" para que se muestren puntos -->
+      <input type="password" id="passwordMaestra" placeholder="Ingrese contraseña" required>
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+
+  <!-- Contenedor que se mostrará si la contraseña es correcta -->
+  <div id="contenidoMaestra" style="display: none;">
+    <h1>Resultados de Alumnos</h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Escuela</th>
+          <th>Grado</th>
+          <th>Grupo</th>
+          <th>Respuestas Correctas</th>
+          <th>Calificación</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaResultados"></tbody>
+    </table>
+    <br>
+    <button id="btnEliminarResultados">Eliminar Todos los Resultados</button>
+    <button onclick="window.location.href='index.html'">Regresar al Menú</button>
+  </div>
+
+  <script>
+    // Manejo del login de maestra
+    document.getElementById("formLoginMaestra").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const password = document.getElementById("passwordMaestra").value;
+      const passwordCorrecta = "maestranprma"; // Define la contraseña correcta
+      if (password === passwordCorrecta) {
+        document.getElementById("loginMaestra").style.display = "none";
+        document.getElementById("contenidoMaestra").style.display = "block";
+        cargarResultados();
+      } else {
+        alert("❌ Contraseña incorrecta. Inténtalo de nuevo.");
+      }
+    });
+
+    // Función para cargar y mostrar los resultados en la tabla
+    function cargarResultados() {
+      let tabla = document.getElementById("tablaResultados");
+      let resultados = JSON.parse(localStorage.getItem("resultadosAlumnos")) || [];
+      if(resultados.length === 0) {
+        tabla.innerHTML = "<tr><td colspan='8'>No hay resultados guardados.</td></tr>";
+        return;
+      }
+      resultados.forEach(alumno => {
+        let fila = tabla.insertRow();
+        fila.innerHTML = `
+          <td>${alumno.nombre}</td>
+          <td>${alumno.correo}</td>
+          <td>${alumno.escuela}</td>
+          <td>${alumno.grado}</td>
+          <td>${alumno.grupo}</td>
+          <td>${alumno.respuestasCorrectas}</td>
+          <td>${alumno.calificacion}</td>
+          <td><button class="btnEliminar" data-id="${alumno.id}">Eliminar</button></td>
+        `;
+      });
+      
+      // Agregar evento a cada botón "Eliminar" individualmente
+      document.querySelectorAll('.btnEliminar').forEach(button => {
+        button.addEventListener('click', function () {
+          let idEliminar = this.getAttribute("data-id");
+          let resultados = JSON.parse(localStorage.getItem("resultadosAlumnos")) || [];
+          let resultadosFiltrados = resultados.filter(alumno => alumno.id != idEliminar);
+          localStorage.setItem("resultadosAlumnos", JSON.stringify(resultadosFiltrados));
+          alert("✅ Resultado eliminado correctamente.");
+          location.reload();
+        });
+      });
+      
+      // Botón para eliminar TODOS los resultados
+      document.getElementById("btnEliminarResultados").addEventListener("click", function () {
+        if (confirm("¿Estás seguro de eliminar todos los resultados? Esta acción no se puede deshacer.")) {
+          localStorage.removeItem("resultadosAlumnos");
+          alert("✅ Todos los resultados han sido eliminados.");
+          location.reload();
+        }
+      });
+    }
+  </script>
+</body>
+</html>

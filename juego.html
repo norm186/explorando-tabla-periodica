@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de la Tabla Periódica</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body> 
+    <div class ="cintilla3">
+    <h1>Juego de la Tabla Periódica</h1>
+   <!--<div id="opciones"></div>--> <!-- Aquí se mostrarán las opciones de respuesta -->
+    </div>
+    <div class="juego-container">
+        
+        <div id="pregunta"></div>
+        <div id="opciones"></div> <!-- Aquí se mostrarán las opciones de respuesta -->
+         <div id="vidas">Vidas: 3</div>
+    </div>
+    
+        <!-- Mensaje con botones de reintentar y continuar -->
+        <div id="mensaje" class="juego-mensaje  juego-oculto">
+            <p id="mensaje-texto">Perdiste</p>
+        </div>
+       
+        <center>  <button id="btn-reintentar" class="juego-btn juego-btn-reintentar" onclick="reintentarJuego()">Reintentar</button></center>
+         <!--<center> <button id="btn-continuar" class="juego-oculto" onclick="continuarJuego()">Continuar</button></center>-->
+         <center> <button onclick="window.location.href='index.html'">Regresar al Menú</button></center>
+            <!--elementos para mostrar la pregunta y las opciones-->
+           
+          
+           
+           
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
